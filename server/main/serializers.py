@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import ProductModel, ColorModel, SizeModel, ProductColorSizeModel, ProductImageModel
+from .models import ProductModel, ColorModel, SizeModel, ProductColorSizeModel, ProductImageModel, ProductReviewModel
 
 # Serializer for ColorModel
 class ColorSerializer(serializers.ModelSerializer):
@@ -39,8 +39,8 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductModel
-        fields = ['id', 'name', 'description', 'price', 'status', 'created_at', 'updated_at', 'colors', 'images']
-
+        fields = ['id', 'name', 'description', 'category', 'price', 'status', 'created_at', 'updated_at', 'colors', 'images']
+        depth = 1
 
 # Serializer to create a product (including variants and images)
 class ProductCreateSerializer(serializers.ModelSerializer):
@@ -75,3 +75,10 @@ class ProductCreateSerializer(serializers.ModelSerializer):
             ProductImageModel.objects.create(product=product, image=image_data)
 
         return product
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductReviewModel
+        fields = '__all__'
+        depth = 1

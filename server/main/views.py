@@ -1,13 +1,55 @@
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from .models import ProductModel
-from .serializers import ProductSerializer, ProductCreateSerializer
+from rest_framework.permissions import *
+from django_filters.rest_framework import DjangoFilterBackend
+from .models import *
+from .serializers import *
 from main.responses import SuccessResponse, ErrorResponse
+from .filters import ProductFilter, ReviewFIlter
+from rest_framework.decorators import action
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    queryset = ProductReviewModel.objects.all()
+    serializer_class = ReviewSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ReviewFIlter  # Make sure you're using the right filterset class
+
+    def list(self, request, *args, **kwargs):
+        reviews = self.get_queryset()
+        filtered_data = self.filter_queryset(queryset=reviews)
+        serializer = self.get_serializer(filtered_data, many=True)
+
+        return SuccessResponse(
+            data=serializer.data,
+            status=200,
+            message="Muvaffaqqiyatli"
+        )
+
+    @action(detail=True, methods=['get'])
+    def reviews_for_product(self, request, pk=None):
+        product_reviews = ProductReviewModel.objects.filter(product_id=pk)
+        serializer = self.get_serializer(product_reviews, many=True)
+        return SuccessResponse(data=serializer.data, message="Muvaffaqqiyatli", status=200)
+
+    def create(self, request, *args, **kwargs):
+        product_id = request.data.get('product')
+        if not ProductModel.objects.filter(id=product_id).exists():
+            return ErrorResponse(
+                error="Bad request",
+                message="Izoh yozishda nimadir xatolik bor",
+                status=400,
+                path=request.path,
+                method=request.method
+            )
+
+        return super().create(request, *args, **kwargs)
+
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = ProductModel.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly]
-
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = ProductFilter  # Make sure you're using the right filterset class
+    
     def get_serializer_class(self):
         if self.action in ['create', 'update', 'partial_update']:
             return ProductCreateSerializer
@@ -16,7 +58,8 @@ class ProductViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         """Mahsulotlar ro'yxatini chiqarish"""
         queryset = self.get_queryset()
-        serializer = self.get_serializer(queryset, many=True)
+        filtered_data = self.filter_queryset(queryset=queryset)
+        serializer = self.get_serializer(filtered_data, many=True)
         return SuccessResponse(
             data=serializer.data,
             message="Mahsulotlar muvaffaqiyatli olindi",
