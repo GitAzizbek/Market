@@ -1,0 +1,103 @@
+**Texnik Topshiriq (TZ)**
+
+# **Loyiha nomi:** Telegram Bot orqali Onlayn Savdo Tizimi
+
+## **1. Loyiha maqsadi**
+Soddalashtirilgan, qulay va samarali onlayn savdo tizimini yaratish. Telegram bot, mini app va admin panel orqali foydalanuvchilarga mahsulot sotib olish, buyurtma qilish va ularning holatini kuzatish imkoniyatini taqdim etish.
+
+## **2. Loyiha tarkibi**
+Loyiha quyidagi asosiy komponentlardan iborat bo‘ladi:
+- **Admin Panel** (Django + DRF asosida)
+- **Foydalanuvchi uchun Mini App** (Telegram ichida ishlaydi)
+- **Telegram Bot** (Aiogram orqali)
+
+---
+## **3. Admin Panel**
+Admin panel orqali tizim boshqariladi va barcha ma’lumotlar nazorat qilinadi.
+
+### **3.1. Foydalanuvchilar bo‘limi**
+- Ro‘yxatdan o‘tgan foydalanuvchilarni ko‘rish.
+- Yangi foydalanuvchi qo‘shish.
+- Foydalanuvchini o‘chirish va tahrirlash.
+
+### **3.2. Mahsulotlar bo‘limi**
+- Yangi mahsulot qo‘shish.
+- Mavjud mahsulotlarni tahrirlash.
+- Mahsulotlarni toifalarga ajratish.
+- Mahsulotlarni o‘chirish.
+
+### **3.3. Kategoriyalar bo‘limi**
+- Mahsulotlarni turkumlash.
+- Har bir kategoriya uchun maxsus ma’lumotlarni saqlash.
+
+### **3.4. Buyurtmalar bo‘limi**
+- Foydalanuvchilar tomonidan qilingan buyurtmalarni ko‘rish.
+- Buyurtmalarning holatini yangilash (Kutilmoqda, Tasdiqlangan, Jo‘natilgan, Yetkazib berilgan).
+
+### **3.5. Sotuv bo‘limi**
+- **Sotuv** – Umumiy savdo statistikasi, harajat va daromadlar tahlili.
+- **Kirim** – Omborga yangi mahsulotlarni qabul qilish va hisobini yuritish.
+- **Chiqim** – Mahsulotlarning chiqimi va sotilish jarayoni.
+
+---
+## **4. Mini App (Foydalanuvchilar uchun)**
+Foydalanuvchilar uchun Telegram ichida ishlaydigan mini ilova.
+
+### **4.1. Mahsulotlar**
+- Mahsulotlar ro‘yxati.
+- Toifalar bo‘yicha ajratish.
+- Rasmlar va tafsilotlarni ko‘rish.
+
+### **4.2. Filter va Ordering**
+- Narx bo‘yicha saralash.
+- Kategoriya bo‘yicha filterlash.
+- Omborda mavjudligiga qarab saralash.
+
+### **4.3. Buyurtma berish**
+- Mahsulot o‘lchami, rangi va sonini tanlash.
+- Buyurtma qilish.
+- To‘lov tizimiga bog‘lash.
+
+### **4.4. Buyurtmalar tarixi**
+- Foydalanuvchining barcha buyurtmalari.
+- Buyurtmalarning holati (Kutilmoqda, Tasdiqlangan, Jo‘natilgan, Yetkazilgan).
+
+### **4.5. Profil**
+- Shaxsiy ma’lumotlarni boshqarish.
+- Manzil va kontakt ma’lumotlarini tahrirlash.
+
+---
+## **5. Telegram Bot**
+Bot foydalanuvchilarga mahsulotlar haqida ma’lumot berish, buyurtma olish va qo‘llab-quvvatlash xizmatini taqdim etadi.
+
+### **5.1. Bot imkoniyatlari**
+- Mahsulotlarni katalog shaklida ko‘rsatish.
+- Buyurtma berish va uning holatini kuzatish.
+- Adminlar uchun statistik ma’lumotlarni taqdim etish.
+- Maxsus takliflar va aksiyalar haqida xabar yuborish.
+- To‘lov tizimlari bilan integratsiya qilish.
+- Mijozlarni qo‘llab-quvvatlash uchun tezkor javob tizimi.
+
+### **5.2. Qo‘shimcha Funksiyalar**
+- Stikerlar va media qo‘shish.
+- Reklama va aksiya xabarlari yuborish.
+- Statistika va hisobotlar.
+
+---
+## **6. Texnologiyalar**
+- **Backend:** Python, Django, Django REST Framework
+- **Bot:** Aiogram
+- **Ma’lumotlar bazasi:** PostgreSQL
+- **Mini App:** Telegram WebApp
+- **Admin Panel:** Django Admin yoki React + DRF
+- **To‘lov tizimlari:** Payme, Click, Stripe integratsiyasi
+
+---
+## **7. Ishga tushirish bosqichlari**
+1. **Django va DRF asosida backendni ishlab chiqish.**
+2. **Telegram botni dasturlash va mini appni yaratish.**
+3. **Admin panel interfeysini tayyorlash va testdan o‘tkazish.**
+4. **Tizimni ishga tushirish va foydalanuvchilarga taqdim etish.**
+
+📌 **Tavsiyalar va qo‘shimchalar qabul qilinadi!**
+

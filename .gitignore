@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+*.whl
+build/
+dist/
+*.sqlite3
+*.log
+
+# Environment variables
+.env
+*.env
+
+# Django
+*.db
+*.sqlite3
+*.log
+media/
+staticfiles/
+
+# Ignore pyenv, virtualenv, and other environment files
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs and text editors
+.vscode/
+.idea/
+*.
+=======
+# dotenv
+.env
+
+# virtualenv
+venv
+ENV/
+
+# logs and caches
+*.log
+*.pot
+*.pyc
+__pycache__/
+
+*/migrations/*
+*migrations
