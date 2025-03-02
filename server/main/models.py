@@ -30,7 +30,6 @@ class ProductModel(models.Model):
     name = models.CharField(max_length=255, verbose_name="Maxsulot nomi")
     description = models.TextField(blank=True, null=True, verbose_name="Maxsulot haqida")
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Maxsulot narxi")
-    image = models.ImageField(upload_to="products/", verbose_name="Maxsulot rasmi")
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='available')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -56,3 +55,13 @@ class ProductColorSizeModel(models.Model):
         verbose_name_plural = "Mahsulot Variantlari"
         unique_together = ('product', 'color', 'size')  # ✅ Bir xil mahsulot-rang-o‘lcham kombinatsiyasi takrorlanmasligi kerak
 
+class ProductImageModel(models.Model):
+    product = models.ForeignKey(ProductModel, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to="products/", verbose_name="Maxsulot rasmi")
+
+    def __str__(self):
+        return f"{self.product.name} - {self.image.name}"
+
+    class Meta:
+        verbose_name = "Mahsulot Rasmi"
+        verbose_name_plural = "Mahsulot Rasmlari"
