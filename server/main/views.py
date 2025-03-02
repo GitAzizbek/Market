@@ -6,16 +6,21 @@ from .serializers import *
 from main.responses import SuccessResponse, ErrorResponse
 from .filters import ProductFilter, ReviewFIlter
 from rest_framework.decorators import action
+from rest_framework.views import APIView
 
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = ProductReviewModel.objects.all()
     serializer_class = ReviewSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_class = ReviewFIlter  # Make sure you're using the right filterset class
+    filterset_class = ReviewFIlter  
 
     def list(self, request, *args, **kwargs):
         reviews = self.get_queryset()
+
+        reviews = reviews.filter(user=request.user)
+
         filtered_data = self.filter_queryset(queryset=reviews)
+
         serializer = self.get_serializer(filtered_data, many=True)
 
         return SuccessResponse(
@@ -23,6 +28,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
             status=200,
             message="Muvaffaqqiyatli"
         )
+
 
     @action(detail=True, methods=['get'])
     def reviews_for_product(self, request, pk=None):
@@ -102,4 +108,17 @@ class ProductViewSet(viewsets.ModelViewSet):
             data=[],
             message="Mahsulot muvaffaqiyatli o'chirildi",
             status=204
+        )
+    
+
+class GetAnnounce(APIView):
+    def get(self, request):
+        announce = AnnounceModel.objects.all().order_by('-created_at')[:3]
+
+        serializer = AnnounceSerializer(announce, many=True)
+
+        return SuccessResponse(
+            data=serializer.data,
+            message="Muvaffaqqiyatli",
+            status=200
         )

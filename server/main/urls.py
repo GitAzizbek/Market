@@ -8,4 +8,5 @@ router.register(r'reviews', ReviewViewSet, basename='reviews')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('announce/', GetAnnounce.as_view())
 ]

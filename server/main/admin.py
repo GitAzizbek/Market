@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ProductModel, ProductColorSizeModel, SizeModel, ColorModel, ProductImageModel, CategoryModel, ProductReviewModel
+from .models import ProductModel, ProductColorSizeModel, SizeModel, ColorModel, ProductImageModel, CategoryModel, ProductReviewModel, AnnounceModel
 from unfold.admin import ModelAdmin, TabularInline
 from django.forms.models import BaseInlineFormSet
 
@@ -53,4 +53,9 @@ class CategoryAdmin(ModelAdmin):
 
 @admin.register(ProductReviewModel)
 class ReviewAdmin(ModelAdmin):
+    search_fields = ('__all__',)
+
+
+@admin.register(AnnounceModel)
+class AnnounceAdmin(ModelAdmin):
     search_fields = ('__all__',)

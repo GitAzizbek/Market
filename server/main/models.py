@@ -91,3 +91,16 @@ class ProductReviewModel(models.Model):
     class Meta:
         verbose_name = "Izohlar"
         verbose_name_plural = "Izohlar"
+
+class AnnounceModel(models.Model):
+    title = models.CharField(max_length=300)
+    body = models.TextField()
+    img = models.ImageField(upload_to="announcements")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = "Elonlar"
+        verbose_name_plural = "Elonlar"
