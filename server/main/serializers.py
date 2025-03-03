@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import ProductModel, ColorModel, SizeModel, ProductColorSizeModel, ProductImageModel, ProductReviewModel, AnnounceModel
+from .models import ProductModel, ColorModel, SizeModel, ProductColorSizeModel, ProductImageModel, ProductReviewModel, AnnounceModel, CategoryModel
 
 # Serializer for ColorModel
 class ColorSerializer(serializers.ModelSerializer):
@@ -88,3 +88,8 @@ class AnnounceSerializer(serializers.ModelSerializer):
         model = AnnounceModel
         fields = '__all__'
 
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CategoryModel
+        fields = '__all__'

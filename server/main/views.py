@@ -122,3 +122,8 @@ class GetAnnounce(APIView):
             message="Muvaffaqqiyatli",
             status=200
         )
+    
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = CategoryModel.objects.all()
+    permission_classes = [AllowAny]
+    serializer_class = CategorySerializer
