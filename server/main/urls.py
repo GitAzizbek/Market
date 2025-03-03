@@ -5,7 +5,7 @@ from .views import *
 router = DefaultRouter()
 router.register(r'products', ProductViewSet, basename='products')
 router.register(r'reviews', ReviewViewSet, basename='reviews')
-router.register(r'category', ReviewViewSet, basename='categories')
+router.register(r'category', CategoryViewSet, basename='categories')
 
 urlpatterns = [
     path('', include(router.urls)),
