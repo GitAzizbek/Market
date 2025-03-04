@@ -31,7 +31,7 @@ class ProductImageSerializer(serializers.ModelSerializer):
         fields = ['id', 'image']
 
     def get_image(self, obj):
-        return f"api/{obj.image}"
+        return f"api/media/{obj.image}"
 # Serializer for ProductModel
 class ProductSerializer(serializers.ModelSerializer):
     colors = ProductColorSizeSerializer(source='productcolorsizemodel_set', many=True, read_only=True)
