@@ -20,7 +20,7 @@ class ProductColorSizeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductColorSizeModel
-        fields = ['color', 'size', 'quantity']
+        fields = ['id', 'color', 'size', 'quantity']
 
 # Serializer for ProductImageModel
 class ProductImageSerializer(serializers.ModelSerializer):
