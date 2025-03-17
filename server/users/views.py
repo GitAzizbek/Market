@@ -105,7 +105,7 @@ class ProfileView(APIView):
         },
 
         return SuccessResponse(
-            data=UserMeSerializer(user).data,
+            data=ProfileSerializer(user).data,
             status=200,
             message="Success"
         )
