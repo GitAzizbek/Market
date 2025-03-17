@@ -8,4 +8,5 @@ router.register(r'orders', OrderViewSet, basename='order')
 urlpatterns = [
     path('', include(router.urls)),
     path('cashbox/', CashboxView.as_view(), name='cashbox'),
+    path('upload/<int:order_id>', UploadCheck.as_view())
 ]

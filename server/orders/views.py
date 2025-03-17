@@ -28,6 +28,39 @@ class OrderViewSet(viewsets.ModelViewSet):
         order.save()
         return Response({'status': 'Buyurtma bekor qilindi'})
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.core.exceptions import ValidationError
+
+class UploadCheck(APIView):
+    def post(self, request, order_id):
+        # Buyurtmani topamiz
+        order = OrderModel.objects.filter(pk=order_id).first()
+        if not order:
+            return Response({"message": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        # Faylni olish
+        checkfile = request.FILES.get('file')
+        if not checkfile:
+            return Response({"message": "No file uploaded"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Fayl turini tekshirish (faqat rasm yoki PDF)
+        valid_mime_types = ["image/png", "image/jpeg", "image/jpg", "application/pdf"]
+        if checkfile.content_type not in valid_mime_types:
+            return Response(
+                {"message": "Invalid file format. Only PNG, JPG, JPEG, and PDF allowed."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Faylni saqlash
+        order.payment_check = checkfile
+        order.save()
+
+        return Response({"message": "Success"}, status=status.HTTP_200_OK)
+
+        
+
 class CashboxView(APIView):
     permission_classes = [IsAdminUser]
 
