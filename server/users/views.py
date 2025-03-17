@@ -101,7 +101,7 @@ class ProfileView(APIView):
             "telegram_id": request.user.telegram_id,
             "avatar": request.user.avatar,
             "first_name": request.user.first_name,
-            "district": request.user.adsress,
+            "address": request.user.address,
         },
 
         return SuccessResponse(
