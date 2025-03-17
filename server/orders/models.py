@@ -123,7 +123,7 @@ class CashboxModel(models.Model):
 
 class CommentsModel(models.Model):
     text = models.TextField()
-    order = models.ForeignKey(OrderModel, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(ProductModel, on_delete=models.SET_NULL, null=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     rate = models.IntegerField(default=1)
 

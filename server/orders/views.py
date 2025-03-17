@@ -88,12 +88,12 @@ class AddCommentView(APIView):
     
     def post(self, request):
         id = request.data.get('id')
-        order = OrderModel.objects.filter(pk=id).first()
+        product = ProductModel.objects.filter(pk=id).first()
 
-        if not order:
+        if not product:
             return ErrorResponse(
                 error="Not found",
-                message="Order not found",
+                message="Product not found",
                 status=404,
                 path=request.path,
                 method=request.method
@@ -101,7 +101,7 @@ class AddCommentView(APIView):
         
         comment = CommentsModel(
             text=request.data.get('text'),
-            order=order,
+            product=product,
             user=request.user,
             rate=request.data.get('rate')
         )
@@ -116,7 +116,7 @@ class AddCommentView(APIView):
 
 class GetCommentByOrder(APIView):
     def get(self, request, id):
-        order = OrderModel.objects.filter(pk=id).first()
+        order = ProductModel.objects.filter(pk=id).first()
 
         if not order:
             return ErrorResponse(
@@ -127,7 +127,7 @@ class GetCommentByOrder(APIView):
                 method=request.method
             )
         
-        comments = CommentsModel.objects.filter(order=order)
+        comments = CommentsModel.objects.filter(product=order)
 
         serializer = CommentSerializer(comments, many=True)
 
