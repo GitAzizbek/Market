@@ -103,7 +103,7 @@ class AddCommentView(APIView):
         )
 
     def get(self, request):
-        comments = CommentsModel.objects.all(user=request.user)
+        comments = CommentsModel.objects.filter(user=request.user)
 
         serializer = CommentSerializer(comments, many=True)
 
