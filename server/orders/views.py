@@ -127,7 +127,7 @@ class GetCommentByOrder(APIView):
                 method=request.method
             )
         
-        comments = CommentsModel.objects.filter(product=order)
+        comments = CommentsModel.objects.filter(product=order).order_by('-rate')
 
         serializer = CommentSerializer(comments, many=True)
 
