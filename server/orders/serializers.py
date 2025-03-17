@@ -47,3 +47,4 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = CommentsModel
         fields = '__all__'
+        depth = 1
