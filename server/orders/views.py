@@ -7,12 +7,12 @@ from .serializers import *
 from rest_framework.views import APIView
 
 class OrderViewSet(viewsets.ModelViewSet):
-    queryset = OrderModel.objects.all().order_by('-created_at')
+    queryset = OrderModel.objects.all()
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
-        return OrderModel.objects.filter(user=self.request.user)
+        return OrderModel.objects.filter(user=self.request.user).order_by('-created_at')
     
     @action(detail=True, methods=['post'])
     def confirm(self, request, pk=None):
