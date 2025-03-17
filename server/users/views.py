@@ -93,3 +93,19 @@ class UserUpdateAPIView(APIView):
                 method=request.method
             )
 
+class ProfileView(APIView):
+    def get(self,request):
+        user = {
+            "id": request.user.pk,
+            "phone": request.user.phone,
+            "telegram_id": request.user.telegram_id,
+            "avatar": request.user.avatar,
+            "first_name": request.user.first_name,
+            "district": request.user.adsress,
+        },
+
+        return SuccessResponse(
+            data=UserMeSerializer(user).data,
+            status=200,
+            message="Success"
+        )
