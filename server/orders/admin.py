@@ -4,7 +4,12 @@ from .models import OrderModel, OrderItemModel
 from unfold.admin import ModelAdmin, TabularInline
 from django.utils.safestring import mark_safe
 from django.utils.timezone import localtime
-from .models import CashboxModel
+from .models import CashboxModel, CommentsModel
+
+
+@admin.register(CommentsModel)
+class ReviewAdmin(ModelAdmin):
+    search_fields = ('__all__',)
 
 @admin.register(CashboxModel)
 class CashboxAdmin(ModelAdmin):

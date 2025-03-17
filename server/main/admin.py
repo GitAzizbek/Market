@@ -51,11 +51,6 @@ class CategoryAdmin(ModelAdmin):
     search_fields = ('name',)
 
 
-@admin.register(ProductReviewModel)
-class ReviewAdmin(ModelAdmin):
-    search_fields = ('__all__',)
-
-
 @admin.register(AnnounceModel)
 class AnnounceAdmin(ModelAdmin):
     search_fields = ('__all__',)
