@@ -120,3 +120,13 @@ class CashboxModel(models.Model):
     class Meta:
         verbose_name = "Kassa"
         verbose_name_plural = "Kassa"
+
+class CommentsModel(models.Model):
+    text = models.TextField()
+    order = models.ForeignKey(OrderModel, on_delete=models.CASCADE)
+    user = models.ForeignKey()
+    rate = models.IntegerField(default=1)
+
+    def __str__(self):
+        return self.text
+    

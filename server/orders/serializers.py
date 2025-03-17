@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import OrderModel, OrderItemModel
+from .models import OrderModel, OrderItemModel, CommentsModel
 
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -41,3 +41,9 @@ class OrderSerializer(serializers.ModelSerializer):
         order.save()
         return order
 
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CommentsModel
+        fields = '__all__'

@@ -5,6 +5,7 @@ from rest_framework.decorators import action
 from .models import *
 from .serializers import *
 from rest_framework.views import APIView
+from main.responses import ErrorResponse, SuccessResponse
 
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = OrderModel.objects.all()
@@ -71,3 +72,67 @@ class CashboxView(APIView):
         cashbox.total_income = 0
         cashbox.save()
         return Response({"message": "Kassa nolga tushirildi!"})
+    
+
+class AddCommentView(APIView):
+    def post(self, request):
+        id = request.data.get('id')
+        order = OrderModel.objects.filter(pk=id).first()
+
+        if not order:
+            return ErrorResponse(
+                error="Not found",
+                message="Order not found",
+                status=404,
+                path=request.path,
+                method=request.method
+            )
+        
+        comment = CommentsModel(
+            text=request.data.get('text'),
+            order=order,
+            user=request.user,
+            rate=request.data.get('rate')
+        )
+        comment.save()
+
+        return SuccessResponse(
+            data="Success",
+            message="Comment success",
+            status=200
+        )
+
+    def get(self, request):
+        comments = CommentsModel.objects.all(user=request.user)
+
+        serializer = CommentSerializer(comments, many=True)
+
+        return SuccessResponse(
+            data=serializer.data,
+            message="Success",
+            status=200
+        )
+
+class GetCommentByOrder(APIView):
+    def get(self, request, id):
+        order = OrderModel.objects.filter(pk=id).first()
+
+        if not order:
+            return ErrorResponse(
+                error="Not found",
+                message="Order not found",
+                status=404,
+                path=request.path,
+                method=request.method
+            )
+        
+        comments = CommentsModel.objects.filter(order=order)
+
+        serializer = CommentSerializer(comments, many=True)
+
+        return SuccessResponse(
+            data=serializer.data,
+            message="Success",
+            status=200
+        )
+            
