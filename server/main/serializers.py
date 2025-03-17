@@ -33,14 +33,22 @@ class ProductImageSerializer(serializers.ModelSerializer):
     def get_image(self, obj):
         return f"api/media/{obj.image}"
 # Serializer for ProductModel
+from rest_framework import serializers
+
 class ProductSerializer(serializers.ModelSerializer):
-    colors = ProductColorSizeSerializer(source='productcolorsizemodel_set', many=True, read_only=True)
+    colors = serializers.SerializerMethodField()
     images = ProductImageSerializer(source='images.all', many=True, read_only=True)
 
     class Meta:
         model = ProductModel
         fields = ['id', 'name', 'description', 'category', 'price', 'status', 'created_at', 'updated_at', 'colors', 'images']
         depth = 1
+
+    def get_colors(self, obj):
+        # Faqat quantity > 0 bo'lganlarni qaytaradi
+        colors = obj.productcolorsizemodel_set.filter(quantity__gt=0)
+        return ProductColorSizeSerializer(colors, many=True).data
+
 
 # Serializer to create a product (including variants and images)
 class ProductCreateSerializer(serializers.ModelSerializer):
