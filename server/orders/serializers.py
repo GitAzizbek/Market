@@ -11,7 +11,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrderModel
-        fields = ('id', 'payment_method', 'delivery_method', 'delivery_address', 'payment_check', 'total_amount', 'items')
+        fields = ('id', 'payment_method', 'delivery_method', 'delivery_address', 'payment_check', 'total_amount', 'items', 'payment_status')
 
     def validate(self, data):
         if data['delivery_method'] == 'delivery' and not data.get('delivery_address'):
