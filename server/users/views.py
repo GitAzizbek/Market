@@ -102,7 +102,7 @@ class ProfileView(APIView):
             "avatar": request.user.avatar,
             "first_name": request.user.first_name,
             "address": request.user.address,
-        },
+        }
 
         return SuccessResponse(
             data=ProfileSerializer(user).data,
