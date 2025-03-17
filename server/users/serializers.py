@@ -61,4 +61,4 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
-        fields = '__all__'
+        fields = ['id', 'phone', 'first_name', 'avatar', 'address']

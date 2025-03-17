@@ -98,7 +98,6 @@ class ProfileView(APIView):
         user = {
             "id": request.user.pk,
             "phone": request.user.phone,
-            "telegram_id": request.user.telegram_id,
             "avatar": request.user.avatar,
             "first_name": request.user.first_name,
             "address": request.user.address,
