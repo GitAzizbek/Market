@@ -75,6 +75,17 @@ class CashboxView(APIView):
     
 
 class AddCommentView(APIView):
+    def get(self, request):
+        comments = CommentsModel.objects.filter(user=request.user)
+
+        serializer = CommentSerializer(comments, many=True)
+
+        return SuccessResponse(
+            data=serializer.data,
+            message="Success",
+            status=200
+        )
+    
     def post(self, request):
         id = request.data.get('id')
         order = OrderModel.objects.filter(pk=id).first()
@@ -102,16 +113,6 @@ class AddCommentView(APIView):
             status=200
         )
 
-    def get(self, request):
-        comments = CommentsModel.objects.filter(user=request.user)
-
-        serializer = CommentSerializer(comments, many=True)
-
-        return SuccessResponse(
-            data=serializer.data,
-            message="Success",
-            status=200
-        )
 
 class GetCommentByOrder(APIView):
     def get(self, request, id):
