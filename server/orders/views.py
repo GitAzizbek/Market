@@ -7,7 +7,7 @@ from .serializers import *
 from rest_framework.views import APIView
 
 class OrderViewSet(viewsets.ModelViewSet):
-    queryset = OrderModel.objects.all()
+    queryset = OrderModel.objects.all().order_by('-created_at')
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
     
@@ -58,8 +58,6 @@ class UploadCheck(APIView):
         order.save()
 
         return Response({"message": "Success"}, status=status.HTTP_200_OK)
-
-        
 
 class CashboxView(APIView):
     permission_classes = [IsAdminUser]
