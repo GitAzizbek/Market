@@ -133,3 +133,41 @@ class CommentsModel(models.Model):
     class Meta:
         verbose_name = "Izohlar"
         verbose_name_plural = "Izohlar"
+
+class DeliveryMethods(models.Model):
+    DELIVERY_METHODS = [
+        ('active', "Faol"),
+        ('disactive', 'Faolsizlantirilgan')
+    ]
+    
+    method_name = models.CharField(max_length=500)
+    img = models.ImageField(upload_to="delivery_images")
+    status = models.CharField(max_length=500, choices=DELIVERY_METHODS, default="active")
+    address = models.CharField(max_length=2000, blank=True, null=True)
+
+
+    def __str__(self):
+        return self.method_name
+    
+    class Meta:
+        verbose_name = "Yetkazib berish turlari"
+        verbose_name_plural = "Yetkazib berish turlari"
+
+class PaymentMethods(models.Model):
+    PAYMENT_METHODS = [
+        ('active', "Faol"),
+        ('disactive', 'Faolsizlantirilgan')
+    ]
+
+    method_name = models.CharField(max_length=1000)
+    img = models.ImageField(upload_to="payment_images")
+    status = models.CharField(max_length=500, choices=PAYMENT_METHODS, default="active")
+    card = models.CharField(max_length=500, blank=True, null=True)
+    card_holder = models.CharField(max_length=500, blank=True, null=True)
+
+    def __str__(self):
+        return self.method_name
+    
+    class Meta:
+        verbose_name = "To'lov turlari"
+        verbose_name_plural = "To'lov turlari"

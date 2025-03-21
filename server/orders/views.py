@@ -137,3 +137,27 @@ class GetCommentByOrder(APIView):
             status=200
         )
             
+
+class DeliveryMethodView(APIView):
+    def get(self, request):
+        methods = DeliveryMethods.objects.filter(status="active")
+
+        serializer = DeliveryMethodSerializer(methods, many=True)
+
+        return SuccessResponse(
+            data=serializer.data,
+            message="SUccessfully",
+            status=200
+        )
+    
+class PaymentMethodView(APIView):
+    def get(self, request):
+        methods = PaymentMethods.objects.filter(status="active")
+
+        serializer = PaymentMethodSerializer(methods, many=True)
+
+        return SuccessResponse(
+            data=serializer.data,
+            message="SUccessfully",
+            status=200
+        )

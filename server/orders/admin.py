@@ -4,7 +4,20 @@ from .models import OrderModel, OrderItemModel
 from unfold.admin import ModelAdmin, TabularInline
 from django.utils.safestring import mark_safe
 from django.utils.timezone import localtime
-from .models import CashboxModel, CommentsModel
+from .models import *
+from django.utils.translation import gettext_lazy as _
+
+
+
+@admin.register(DeliveryMethods)
+class DeliveryAdmin(ModelAdmin):
+    search_fields = ('__all__',)
+    list_filter = ('status',)
+
+@admin.register(PaymentMethods)
+class DeliveryAdmin(ModelAdmin):
+    search_fields = ('__all__',)
+    list_filter = ('status',)
 
 
 @admin.register(CommentsModel)
@@ -67,7 +80,7 @@ class OrderAdmin(ModelAdmin):
     readonly_fields = ('user', 'payment_method', 'total_amount', 'created_at', 'updated_at', 'get_payment_check', 'delivery_method', 'delivery_address')
     inlines = [OrderItemInline]
     
-    actions = ['confirm_order', 'cancel_order']
+    actions = ['confirm_order', 'cancel_order', 'notify_new_orders']
     
     def get_payment_check(self, obj):
         if obj.payment_check:
@@ -75,6 +88,15 @@ class OrderAdmin(ModelAdmin):
         return "Mavjud emas"
     get_payment_check.short_description = "To‘lov Cheki"
     
+    def notify_new_orders(self, request, queryset):
+        new_orders = queryset.filter(payment_status="pending")
+        if new_orders.exists():
+            self.message_user(request, _("🚀 Yangi buyurtmalar bor!"), level="info")
+        else:
+            self.message_user(request, _("✅ Yangi buyurtmalar yo‘q."), level="success")
+
+    notify_new_orders.short_description = "Yangi buyurtmalarni tekshirish"
+
     def confirm_order(self, request, queryset):
         queryset.update(payment_status='confirmed')
     confirm_order.short_description = "Buyurtmani tasdiqlash"

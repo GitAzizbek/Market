@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import OrderModel, OrderItemModel, CommentsModel
+from .models import *
 
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -48,3 +48,13 @@ class CommentSerializer(serializers.ModelSerializer):
         model = CommentsModel
         fields = '__all__'
         depth = 1
+
+class DeliveryMethodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DeliveryMethods
+        fields = '__all__'
+
+class PaymentMethodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PaymentMethods
+        fields = '__all__'
