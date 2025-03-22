@@ -14,6 +14,13 @@ load_dotenv()
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-d!p5f7vs%fru)x^yu5v0e1_j7*e$p9^_%&2e8pq)k(skc5!+eu"
 
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://admin.azizbekaliyev.uz",
+    "https://nginx",
+    "https://backend",
+]
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
